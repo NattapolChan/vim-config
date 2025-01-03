@@ -15,21 +15,18 @@ Plug 'junegunn/fzf.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'williamboman/mason.nvim'
+Plug 'lambdalisue/fern.vim'
+Plug 'Donaldttt/fuzzyy'
 
 call plug#end()
+
+noremap <leader>ff :Fern %:h -drawer -reveal=m%:p -toggle -width=50 <CR>
+noremap <leader>pf :FuzzyFiles <CR>
 
 color dracula
 set termguicolors
 hi Normal ctermbg=NONE guibg=NONE
-
-if executable('pylsp')
-    " pip install python-lsp-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pylsp',
-        \ 'cmd': {server_info->['pylsp']},
-        \ 'allowlist': ['python', 'py'],
-        \ })
-endif
 
 if executable('ccls')
     au User lsp_setup call lsp#register_server({
@@ -70,5 +67,17 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-noremap <C-j> 15j
-noremap <C-k> 15k
+noremap <C-j> 10j
+noremap <C-k> 10k
+
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+	Plugin 'VundleVim/Vundle.vim'
+	Plugin 'davidhalter/jedi-vim'
+call vundle#end()
+filetype plugin indent on
+
